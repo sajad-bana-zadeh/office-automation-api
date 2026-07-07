@@ -3,10 +3,12 @@ import { AppModule } from './app.module';
 
 import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+//=====================================================
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  //=ValidationPipe===========================
   app.useGlobalPipes(
     new ValidationPipe(
       {
@@ -16,6 +18,7 @@ async function bootstrap() {
       }),
   );
 
+  //=Swagger===========================
   const config = new DocumentBuilder()
     .setTitle('Office Automation API')
     .setDescription('REST API for office automation system')
@@ -26,6 +29,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api/docs', app, document);
 
+  //=Run===========================
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();
