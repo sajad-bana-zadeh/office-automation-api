@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: office-postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: office_user
+      POSTGRES_PASSWORD: office_password
+      POSTGRES_DB: office_automation_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
