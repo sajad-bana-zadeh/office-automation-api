@@ -24,17 +24,17 @@ export class UsersService {
     };
 
     //=Find===========================
-    async findAll() {
-        return this.prisma.user.findMany({
+    public async findAll() {
+        return await this.prisma.user.findMany({
             select: this.userSelect,
             orderBy: {id: 'asc',},
         });
     }
     
-    async findOne(id: number) {
-        const user = await this.prisma.user.findUnique({
-            where: { id },
-            select: this.userSelect,
+    public async findOne(id: number) {
+        const user = await this.prisma.user.findUnique({  //await :  prisma use table "user" and find a unique row
+            where: { id:id }, // search { database field == input field }
+            select: this.userSelect, // output same "userSelect"
         });
         
         if (!user) {
@@ -45,7 +45,7 @@ export class UsersService {
     }
 
     //=Create===========================
-    async create(createUserDto: CreateUserDto) {
+    public async create(createUserDto: CreateUserDto) {
         const existingUser = await this.prisma.user.findUnique({
             where: {email: createUserDto.email,},
         });
@@ -61,22 +61,22 @@ export class UsersService {
     }
     
     //=Update===========================
-    async update(id: number, updateUserDto: UpdateUserDto) {
+    public async update(id: number, updateUserDto: UpdateUserDto) {
         const user = await this.findOne(id);
         
         return this.prisma.user.update({
-            where: { id },
+            where: { id:id },
             data: updateUserDto,
             select: this.userSelect,
         });
     }
     
     //=Remove===========================
-    async remove(id: number) {
+    public async remove(id: number) {
         const user = await this.findOne(id);
 
         await this.prisma.user.delete({
-            where: { id },
+            where: { id:id },
         });
         
         return {
