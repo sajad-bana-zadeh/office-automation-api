@@ -8,17 +8,7 @@ import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class UsersService {
-    //=Array===========================
-    // for know we use array 
-    // private users = [
-    //     {
-    //         id: 1,
-    //         fullName: 'Sajad',
-    //         email: 'sajad@example.com',
-    //         password: '123456',
-    //     },
-    // ];
-
+ 
     //=ConstructorForPrisma===========================
     constructor(private readonly prisma: PrismaService) {}
 
